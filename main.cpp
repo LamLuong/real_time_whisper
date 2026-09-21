@@ -98,7 +98,10 @@ int main(int argc, char* argv[]) {
 
   printf("pcm length %ld \n", pcm_data.size());
   whisper_filters  model_filters;
+  printf("model_filters.n_fft _ 1 %d \n", model_filters.n_fft);
   whisper_update_filters(argv[1], model_filters);
+
+  printf("model_filters.n_fft %d \n", model_filters.n_fft);
 
   whisper_mel mel;
   log_mel_spectrogram(pcm_data.data(), pcm_data.size(), model_filters.n_mel, 8, model_filters, true, mel);

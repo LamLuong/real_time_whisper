@@ -114,17 +114,17 @@ bool whisper_update_filters(const std::string & fname_inp,
         // const int32_t qntvr_src =    hparams.ftype / GGML_QNT_VERSION_FACTOR;
         // const int32_t ftype_dst = GGML_QNT_VERSION * GGML_QNT_VERSION_FACTOR + ftype;
 
-    fprintf(stderr, "%s: n_vocab       = %d\n", __func__, hparams.n_vocab);
-    fprintf(stderr, "%s: n_audio_ctx   = %d\n", __func__, hparams.n_audio_ctx);
-    fprintf(stderr, "%s: n_audio_state = %d\n", __func__, hparams.n_audio_state);
-    fprintf(stderr, "%s: n_audio_head  = %d\n", __func__, hparams.n_audio_head);
-    fprintf(stderr, "%s: n_audio_layer = %d\n", __func__, hparams.n_audio_layer);
-    fprintf(stderr, "%s: n_text_ctx    = %d\n", __func__, hparams.n_text_ctx);
-    fprintf(stderr, "%s: n_text_state  = %d\n", __func__, hparams.n_text_state);
-    fprintf(stderr, "%s: n_text_head   = %d\n", __func__, hparams.n_text_head);
-    fprintf(stderr, "%s: n_text_layer  = %d\n", __func__, hparams.n_text_layer);
-    fprintf(stderr, "%s: n_mels        = %d\n", __func__, hparams.n_mels);
-    fprintf(stderr, "%s: ftype (src)   = %d\n", __func__, hparams.ftype);
+    // fprintf(stderr, "%s: n_vocab       = %d\n", __func__, hparams.n_vocab);
+    // fprintf(stderr, "%s: n_audio_ctx   = %d\n", __func__, hparams.n_audio_ctx);
+    // fprintf(stderr, "%s: n_audio_state = %d\n", __func__, hparams.n_audio_state);
+    // fprintf(stderr, "%s: n_audio_head  = %d\n", __func__, hparams.n_audio_head);
+    // fprintf(stderr, "%s: n_audio_layer = %d\n", __func__, hparams.n_audio_layer);
+    // fprintf(stderr, "%s: n_text_ctx    = %d\n", __func__, hparams.n_text_ctx);
+    // fprintf(stderr, "%s: n_text_state  = %d\n", __func__, hparams.n_text_state);
+    // fprintf(stderr, "%s: n_text_head   = %d\n", __func__, hparams.n_text_head);
+    // fprintf(stderr, "%s: n_text_layer  = %d\n", __func__, hparams.n_text_layer);
+    // fprintf(stderr, "%s: n_mels        = %d\n", __func__, hparams.n_mels);
+    // fprintf(stderr, "%s: ftype (src)   = %d\n", __func__, hparams.ftype);
     // fprintf(stderr, "%s: qntvr (src)   = %d\n", __func__, qntvr_src);
     // fprintf(stderr, "%s: ftype (dst)   = %d\n", __func__, ftype_dst);
     // fprintf(stderr, "%s: qntvr (dst)   = %d\n", __func__, GGML_QNT_VERSION);
@@ -132,8 +132,6 @@ bool whisper_update_filters(const std::string & fname_inp,
   }
 
   {
-    whisper_filters filters;
-
     finp.read ((char *) &filters.n_mel, sizeof(filters.n_mel));
     finp.read ((char *) &filters.n_fft, sizeof(filters.n_fft));
 
@@ -172,6 +170,7 @@ void log_mel_spectrogram_worker_thread(int ith, const float * hann, const std::v
     int n_fft = filters.n_fft;
     int i = ith;
 
+    printf("n_fft: %d  %d\n", n_fft, 1 + (frame_size / 2));
     // make sure n_fft == 1 + (WHISPER_N_FFT / 2), bin_0 to bin_nyquist
     assert(n_fft == 1 + (frame_size / 2));
 
